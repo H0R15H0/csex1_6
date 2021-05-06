@@ -98,14 +98,14 @@ def application(environ,start_response):
         con.text_factory = str
 
         # SQL文（select）の作成
-        sql = 'select books.id, books.title, books.published_at, authors.name from books JOIN authors ON books.author_id=authors.id;'
+        sql = 'select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;'
 
         # SQL文の実行とその結果のHTML形式への変換
         html += '<body>\n' \
                 '<div class="ol1">\n' \
                 '<ol>\n'
         for row in cur.execute(sql):
-            html += '<li>' + str(row[0]) + ',' + row[1] + ',' + row[2] + ',' + row[3] + '</li>\n'
+            html += '<li>' + str(row[0]) + ',' + row[1] + ',' + row[2] + ',' + f'<a href="/authors/{row[3]}/books">{row[4]}</a>' + '</li>\n'
         html += '</ol>\n' \
                 '</div>\n' \
                 '</body>\n'
