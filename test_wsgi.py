@@ -94,10 +94,10 @@ def application(environ,start_response):
             ('Content-Length', str(len(html))) ])
         return [html]
     elif environ['PATH_INFO'] == '/books':
+        # SQL文の実行とその結果のHTML形式への変換
         con = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
         results = con.execute()
 
-        # SQL文の実行とその結果のHTML形式への変換
         html += '<body>\n' \
                 '<div class="ol1">\n' \
                 '<ol>\n'
