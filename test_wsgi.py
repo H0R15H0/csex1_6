@@ -8,6 +8,7 @@ import cgitb
 
 import re
 from sql import SQL
+import templates
 
 cgitb.enable()
 
@@ -96,20 +97,14 @@ def application(environ,start_response):
         start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8'),
             ('Content-Length', str(len(html))) ])
         return [html]
+        
     elif environ['PATH_INFO'] == '/books':
         html = html.format(title='本一覧')
         # SQL文の実行とその結果のHTML形式への変換
         con = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
         results = con.execute()
 
-        html += '<body>\n' \
-                '<div class="ol1">\n' \
-                '<ol>\n'
-        for row in results:
-            html += '<li>' + str(row[0]) + ',' + row[1] + ',' + row[2] + ',' + f'<a href="/authors/{row[3]}/books">{row[4]}</a>' + '</li>\n'
-        html += '</ol>\n' \
-                '</div>\n' \
-                '</body>\n'
+        html += templates.books_html.html_body(results)
 
         html += '</html>\n'
         html = html.encode('utf-8')
