@@ -136,6 +136,15 @@ def application(environ,start_response):
             html += '<li>' + str(row[3]) + ',' + row[4] + '</li>\n'
         html += '</ol>\n' \
                 '</div>\n' \
+                '<body>\n' \
+                '<div class="form1">\n' \
+                f'<form action="localhost:50311/books/{book_id}/users_books_comments/" method="post">\n' \
+                '学生番号　（整数） 　<input type="number" name="user_student_id"><br>\n' \
+                '氏名　　　（文字列） <input type="text" name="user_name"><br>\n' \
+                'コメント　（文字列） <input type="text" name="comment"><br>\n' \
+                '<input type="submit" value="登録">\n' \
+                '</form>\n' \
+                '</div>\n' \
                 '</body>\n'
         html += '</html>\n'
         html = html.encode('utf-8')
