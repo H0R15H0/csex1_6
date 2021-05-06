@@ -32,11 +32,12 @@ def application(environ,start_response):
     html = '<html lang="ja">\n' \
         '<head>\n' \
         '<meta charset="UTF-8">\n' \
-        '<title>WSGI テスト</title>\n' \
+        '<title>{title}</title>\n' \
         '<link rel="stylesheet" href="default.css">\n' \
         '</head>\n'
 
     if environ['PATH_INFO'] == '/':
+        html = html.format(title='root')
         # フォームデータを取得
         form = cgi.FieldStorage(environ=environ,keep_blank_values=True)
         if ('v1' not in form) or ('v2' not in form):
@@ -96,6 +97,7 @@ def application(environ,start_response):
             ('Content-Length', str(len(html))) ])
         return [html]
     elif environ['PATH_INFO'] == '/books':
+        html = html.format(title='本一覧')
         # SQL文の実行とその結果のHTML形式への変換
         con = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
         results = con.execute()
@@ -118,6 +120,7 @@ def application(environ,start_response):
         return [html]
 
     elif re.compile('/books/(?P<book_id>\d+)/').match(environ['PATH_INFO']).groupdict()["book_id"]:
+        html = html.format(title='本の詳細')
         book_id = re.compile('/books/(?P<book_id>\d+)/').match(environ['PATH_INFO']).groupdict()["book_id"]
         # SQL文の実行とその結果のHTML形式への変換
         con = SQL(f'select id, title, published_at from books where id={book_id};')
@@ -143,6 +146,7 @@ def application(environ,start_response):
         return [html]
 
     else:
+        html = html.format(title='Not found')
         html += '<h1>404 Not Found</h1>'
         html = html.encode('utf-8')
         start_response('404 Not Found', [('Content-type', 'text/html; charset=utf-8'), 
