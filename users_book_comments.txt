@@ -1,0 +1,1 @@
+create table users_books_comments (id integer primary key, user_id integer, book_id integer, message text, foreign key(user_id) references users(id), foreign key(book_id) references books(id));
