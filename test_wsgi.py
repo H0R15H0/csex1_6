@@ -5,6 +5,8 @@ import sys
 # CGIモジュールをインポート
 import cgi
 import cgitb
+
+import re
 from sql import SQL
 
 cgitb.enable()
@@ -107,6 +109,31 @@ def application(environ,start_response):
                 '</div>\n' \
                 '</body>\n'
 
+        html += '</html>\n'
+        html = html.encode('utf-8')
+
+        # レスポンス
+        start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8'),
+            ('Content-Length', str(len(html))) ])
+        return [html]
+
+    elif re.compile('/books/(?P<book_id>\d+)/').match(environ['PATH_INFO']).groupdict()["book_id"]:
+        book_id = re.compile('/books/(?P<book_id>\d+)/').match(environ['PATH_INFO']).groupdict()["book_id"]
+        # SQL文の実行とその結果のHTML形式への変換
+        con = SQL(f'select id, title, published_at from books where id={book_id};')
+        book = con.execute()
+        con = SQL(f'select books.id, books.title, books.published_at, users_books_comments.user_id, users_books_comments.message from books JOIN users_books_comments ON books.id=users_books_comments.book_id where books.id={book_id};')
+        comments = con.execute()
+        print(book)
+        html += '<body>\n' \
+                f'<h1>{book[0]}, {book[1]}, {book[2]}</h1>\n'  \
+                '<div class="ol1">\n' \
+                '<ol>\n'
+        for row in comments:
+            html += '<li>' + str(row[3]) + ',' + row[4] + '</li>\n'
+        html += '</ol>\n' \
+                '</div>\n' \
+                '</body>\n'
         html += '</html>\n'
         html = html.encode('utf-8')
 
