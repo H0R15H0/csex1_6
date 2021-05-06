@@ -5,6 +5,8 @@ import sys
 # CGIモジュールをインポート
 import cgi
 import cgitb
+from sql import SQL
+
 cgitb.enable()
 
 # sqlite3（SQLサーバ）モジュールをインポート
@@ -92,27 +94,18 @@ def application(environ,start_response):
             ('Content-Length', str(len(html))) ])
         return [html]
     elif environ['PATH_INFO'] == '/books':
-        # データベース接続とカーソル生成
-        con = sqlite3.connect(dbname)
-        cur = con.cursor()
-        con.text_factory = str
-
-        # SQL文（select）の作成
-        sql = 'select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;'
+        con = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
+        results = con.execute()
 
         # SQL文の実行とその結果のHTML形式への変換
         html += '<body>\n' \
                 '<div class="ol1">\n' \
                 '<ol>\n'
-        for row in cur.execute(sql):
+        for row in results:
             html += '<li>' + str(row[0]) + ',' + row[1] + ',' + row[2] + ',' + f'<a href="/authors/{row[3]}/books">{row[4]}</a>' + '</li>\n'
         html += '</ol>\n' \
                 '</div>\n' \
                 '</body>\n'
-
-        # カーソルと接続を閉じる
-        cur.close()
-        con.close()
 
         html += '</html>\n'
         html = html.encode('utf-8')
