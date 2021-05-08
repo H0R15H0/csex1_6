@@ -42,48 +42,8 @@ def application(environ,start_response):
 
     if environ['PATH_INFO'] == '/':
         html = html.format(title='ようこそ！')
-        # フォームデータを取得
-        form = cgi.FieldStorage(environ=environ,keep_blank_values=True)
-        if ('v1' not in form) or ('v2' not in form):
-            # 入力フォームの内容が空の場合（初めてページを開いた場合も含む）
-
-            # HTML（入力フォーム部分）
-            html += templates.index_html.html_body()
-        else:
-            # 入力フォームの内容が空でない場合
-
-            # フォームデータから各フィールド値を取得
-            v1 = form.getvalue("v1", "0")
-            v2 = form.getvalue("v2", "0")
-
-            # データベース接続とカーソル生成
-            con = sqlite3.connect(dbname)
-            cur = con.cursor()
-            con.text_factory = str
-
-            # SQL文（insert）の作成と実行
-            sql = 'insert into users (id, name) values (?,?)'
-            cur.execute(sql, (int(v1),v2))
-            con.commit()
-
-            # SQL文（select）の作成
-            sql = 'select * from users'
-
-            # SQL文の実行とその結果のHTML形式への変換
-            html += '<body>\n' \
-                    '<div class="ol1">\n' \
-                    '<ol>\n'
-            for row in cur.execute(sql):
-                html += '<li>' + str(row[0]) + ',' + row[1] + '</li>\n'
-            html += '</ol>\n' \
-                    '</div>\n' \
-                    '<a href="/">登録ページに戻る</a>\n' \
-                    '</body>\n'
-
-            # カーソルと接続を閉じる
-            cur.close()
-            con.close()
-
+        
+        html += templates.index_html.html_body()
 
         html += '</html>\n'
         html = html.encode('utf-8')
