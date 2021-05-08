@@ -25,7 +25,7 @@ def html_body(book, comments):
                 '</tr> \n' \
                 '<tr> \n' \
                 '<th scope="row">' + '著者' + '</th> \n' \
-                '<td>' + f'<a href="/authors/{book[4]}/books">{book[5]}</a>' + '</td> \n' \
+                '<td>' + book[5] + '</td> \n' \
                 '</tr> \n'
     body +=     '</tbody> \n' \
                 '</table> \n'
