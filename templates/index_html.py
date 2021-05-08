@@ -6,7 +6,7 @@ def html_body():
             '<form action="/users" method="post"> \n' \
             '<div class="form-group"> \n' \
             '<label for="student_id">学生番号</label> \n' \
-            '<input type="text" class="form-control" id="student_id" name="student_id" aria-describedby="emailHelp" placeholder="学生番号を入力してください" style="width:40%;"> \n' \
+            '<input type="text" class="form-control" id="student_id" name="student_id" placeholder="学生番号を入力してください" style="width:40%;"> \n' \
             '</div> \n' \
             '<div class="form-group"> \n' \
             '<label for="name">名前</label> \n' \
