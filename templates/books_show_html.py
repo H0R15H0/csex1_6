@@ -35,7 +35,7 @@ def html_body(book, comments):
                 f'<form action="/books/{book[0]}/users_books_comments" method="post">\n' \
                 '学生番号　（整数） 　<input type="number" name="user_student_id"><br>\n' \
                 '氏名　　　（文字列） <input type="text" name="user_name"><br>\n' \
-                'コメント　（文字列） <input type="text" name="comment"><br>\n' \
+                'コメント　（文字列） <input type="text" name="message"><br>\n' \
                 '<input type="submit" value="登録">\n' \
                 '</form>\n' \
                 '</div>\n' 
