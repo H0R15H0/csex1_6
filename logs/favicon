@@ -1,0 +1,11 @@
+console
+GET http://localhost:50311/favicon.ico 500 (Internal Server Error)
+
+terminal
+Traceback (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/wsgiref/handlers.py", line 137, in run
+    self.result = application(self.environ, self.start_response)
+  File "test_wsgi.py", line 118, in application
+    elif re.compile('/books/(?P<book_id>\d+)').match(environ['PATH_INFO']).groupdict()["book_id"]:
+AttributeError: 'NoneType' object has no attribute 'groupdict'
+127.0.0.1 - - [08/May/2021 14:27:17] "GET /favicon.ico HTTP/1.1" 500 59
