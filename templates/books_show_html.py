@@ -29,16 +29,18 @@ def html_body(book, comments):
                 '</tr> \n'
     body +=     '</tbody> \n' \
                 '</table> \n'
+    # コメント部分
+    body += '<h2>コメント</h2>\n' 
+    body +=     '<div class="form1">\n' \
+                f'<form action="/books/{book[0]}/users_books_comments/" method="post">\n' \
+                '学生番号　（整数） 　<input type="number" name="user_student_id"><br>\n' \
+                '氏名　　　（文字列） <input type="text" name="user_name"><br>\n' \
+                'コメント　（文字列） <input type="text" name="comment"><br>\n' \
+                '<input type="submit" value="登録">\n' \
+                '</form>\n' \
+                '</div>\n' 
     for row in comments:
         body += '<h3>' + str(row[0]) + ',' + row[1] + '</h3>\n'
-    body += '<div class="form1">\n' \
-            f'<form action="localhost:50311/books/{book[0]}/users_books_comments/" method="post">\n' \
-            '学生番号　（整数） 　<input type="number" name="user_student_id"><br>\n' \
-            '氏名　　　（文字列） <input type="text" name="user_name"><br>\n' \
-            'コメント　（文字列） <input type="text" name="comment"><br>\n' \
-            '<input type="submit" value="登録">\n' \
-            '</form>\n' \
-            '</div>\n' \
-            '</div>\n' \
+    body +=     '</div>\n' \
             '</body>\n'
     return body
