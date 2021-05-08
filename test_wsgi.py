@@ -100,7 +100,7 @@ def application(environ,start_response):
         
     elif environ['PATH_INFO'] == '/books':
         html = html.format(title='本一覧')
-        
+
         # SQL文の実行とその結果のHTML形式への変換
         query = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
         results = query.execute()
@@ -115,9 +115,9 @@ def application(environ,start_response):
             ('Content-Length', str(len(html))) ])
         return [html]
 
-    elif re.compile('/books/(?P<book_id>\d+)/').match(environ['PATH_INFO']).groupdict()["book_id"]:
+    elif re.compile('/books/(?P<book_id>\d+)').match(environ['PATH_INFO']).groupdict()["book_id"]:
         html = html.format(title='本の詳細')
-        book_id = re.compile('/books/(?P<book_id>\d+)/').match(environ['PATH_INFO']).groupdict()["book_id"]
+        book_id = re.compile('/books/(?P<book_id>\d+)').match(environ['PATH_INFO']).groupdict()["book_id"]
 
         # SQL文の実行とその結果のHTML形式への変換
         query = SQL(f'select books.id, books.title, books.published_at, books.class_name, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id where books.id={book_id};')
