@@ -32,7 +32,7 @@ def html_body(book, comments):
     # コメント部分
     body += '<h2>コメント</h2>\n' 
     body +=     '<div class="form1">\n' \
-                f'<form action="/books/{book[0]}/users_books_comments/" method="post">\n' \
+                f'<form action="/books/{book[0]}/users_books_comments" method="post">\n' \
                 '学生番号　（整数） 　<input type="number" name="user_student_id"><br>\n' \
                 '氏名　　　（文字列） <input type="text" name="user_name"><br>\n' \
                 'コメント　（文字列） <input type="text" name="comment"><br>\n' \
