@@ -101,8 +101,8 @@ def application(environ,start_response):
     elif environ['PATH_INFO'] == '/books':
         html = html.format(title='本一覧')
         # SQL文の実行とその結果のHTML形式への変換
-        con = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
-        results = con.execute()
+        query = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
+        results = query.execute()
 
         html += templates.books_index_html.html_body(results)
 
@@ -118,10 +118,10 @@ def application(environ,start_response):
         html = html.format(title='本の詳細')
         book_id = re.compile('/books/(?P<book_id>\d+)/').match(environ['PATH_INFO']).groupdict()["book_id"]
         # SQL文の実行とその結果のHTML形式への変換
-        con = SQL(f'select books.id, books.title, books.published_at, books.class_name, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id where books.id={book_id};')
-        book = con.execute()
-        con = SQL(f'select users_books_comments.user_id, users_books_comments.message from books JOIN users_books_comments ON books.id=users_books_comments.book_id where books.id={book_id};')
-        comments = con.execute()
+        query = SQL(f'select books.id, books.title, books.published_at, books.class_name, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id where books.id={book_id};')
+        book = query.execute()
+        query = SQL(f'select users_books_comments.user_id, users_books_comments.message from books JOIN users_books_comments ON books.id=users_books_comments.book_id where books.id={book_id};')
+        comments = query.execute()
         html += templates.books_show_html.html_body(book, comments)
         html += '</html>\n'
         html = html.encode('utf-8')
