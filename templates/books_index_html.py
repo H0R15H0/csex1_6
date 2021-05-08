@@ -2,6 +2,7 @@ def html_body(results):
     body = ''
 
     body += '<body>\n' \
+            '<h1>本の一覧ページです！</h1>' \
             '<table class="table"> \n' \
                 '<thead> \n' \
                 '<tr> \n' \
@@ -15,7 +16,7 @@ def html_body(results):
     for row in results:
         body += '<tr> \n' \
                 '<th scope="row">' + str(row[0]) + '</th> \n' \
-                '<td>' + row[1] + '</td> \n' \
+                '<td style="width: 30vw;">' + f'<a href="/books/{row[0]}">{row[1]}</a>' + '</td> \n' \
                 '<td>' + row[2] + '</td> \n' \
                 '<td>' + f'<a href="/authors/{row[3]}/books">{row[4]}</a>' + '</td> \n' \
                 '</tr> \n'
