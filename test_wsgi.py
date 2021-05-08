@@ -123,6 +123,8 @@ def application(environ,start_response):
         form = urllib.parse.parse_qs(body)
         print(form)
 
+        start_response('301 Moved', [('Location','/books/{}'.format(book_id))])
+        return ''
 
         # # SQL文の実行とその結果のHTML形式への変換
         # user_id = 1
