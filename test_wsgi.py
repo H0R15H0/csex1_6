@@ -36,6 +36,7 @@ def application(environ,start_response):
         '<head>\n' \
         '<meta charset="UTF-8">\n' \
         '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">' \
+        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">' \
         '<title>{title}</title>\n' \
         '</head>\n'
 
@@ -123,7 +124,7 @@ def application(environ,start_response):
         book_id = re.compile('/books/(?P<book_id>\d+)/users_books_comments').match(environ['PATH_INFO']).groupdict()["book_id"]
         body = environ['wsgi.input'].read(int(environ.get('CONTENT_LENGTH', 0))).decode('utf-8')
         form = urllib.parse.parse_qs(body)
-
+        print(form)
         query = SQL('insert into users_books_comments(user_id, book_id, message) values ({},{},"{}")'.format(int(form['user_student_id'][0]), book_id, form['message'][0]))
         query.execute()
 
@@ -137,8 +138,12 @@ def application(environ,start_response):
         # SQL文の実行とその結果のHTML形式への変換
         query = SQL(f'select books.id, books.title, books.published_at, books.class_name, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id where books.id={book_id};')
         book = query.execute()
-        query = SQL(f'select users_books_comments.user_id, users_books_comments.message from books JOIN users_books_comments ON books.id=users_books_comments.book_id where books.id={book_id};')
+        query = SQL(f'select users.name, users_books_comments.message from users_books_comments JOIN users ON users_books_comments.user_id=users.id where users_books_comments.book_id={book_id};')
         comments = query.execute()
+        # commentsが一つの時tupleがかえって来るのでarrayで包む
+        if type(comments) is tuple:
+            comments = [comments] 
+
 
         html += templates.books_show_html.html_body(book, comments)
         html += '</html>\n'
