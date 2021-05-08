@@ -39,8 +39,8 @@ def application(environ,start_response):
         '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">' \
         '<title>{title}</title>\n' \
         '</head>\n' \
-        '<nav class="navbar navbar-light bg-light"> \n' \
-        '<a class="navbar-brand" href="/books">Navbar</a> \n' \
+        '<nav class="navbar navbar-primary bg-light"> \n' \
+        '<a class="navbar-brand" href="/books">青空</a> \n' \
         '<form class="form-inline" action="/books" method="get"> \n' \
         '<input class="form-control mr-sm-2" type="search" placeholder="検索" name="book_title"> \n' \
         '<button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button> \n' \
