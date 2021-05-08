@@ -2,8 +2,10 @@ def html_body(book, comments):
     body = ''
 
     body += '<body>\n' \
+                '<a href="/books">< 一覧に戻る</a> \n' \
+                '<div style="margin: 0 5vw;"> \n' \
                 f'<h1>{book[0]}, {book[1]}, {book[2]}</h1>\n'  \
-                '<table class="table"> \n' \
+                '<table class="table" style="width: 20vw;"> \n' \
                 '<tbody> \n' \
                 '<tr> \n' \
                 '<th scope="row">' + 'id' + '</th> \n' \
@@ -36,6 +38,7 @@ def html_body(book, comments):
             'コメント　（文字列） <input type="text" name="comment"><br>\n' \
             '<input type="submit" value="登録">\n' \
             '</form>\n' \
+            '</div>\n' \
             '</div>\n' \
             '</body>\n'
     return body
