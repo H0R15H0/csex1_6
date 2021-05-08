@@ -10,7 +10,7 @@ import re
 from sql import SQL
 import templates
 # POSTパラメーター整形用
-import urllib
+import urllib.parse
 
 cgitb.enable()
 
@@ -42,7 +42,7 @@ def application(environ,start_response):
 
     if environ['PATH_INFO'] == '/':
         html = html.format(title='ようこそ！')
-        
+
         html += templates.index_html.html_body()
 
         html += '</html>\n'
@@ -54,10 +54,16 @@ def application(environ,start_response):
         return [html]
         
     elif environ['PATH_INFO'] == '/books':
+        query_params = urllib.parse.parse_qs(environ["QUERY_STRING"])
+        search_book_title = ''
+        if len(query_params):
+            search_book_title = query_params['book_title'][0]
         html = html.format(title='本一覧')
 
         # SQL文の実行とその結果のHTML形式への変換
-        query = SQL('select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id;')
+        query = 'select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id '
+        query += f'where books.title LIKE "%{search_book_title}%";' if len(search_book_title) else ';'
+        query = SQL(query)
         results = query.execute()
 
         html += templates.books_index_html.html_body(results)
