@@ -44,6 +44,7 @@ def application(environ,start_response):
         '<form class="form-inline" action="/books" method="get"> \n' \
         '<input class="form-control mr-sm-2" type="search" placeholder="検索" name="book_title"> \n' \
         '<button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button> \n' \
+        '<a class="navbar-brand" href="/mypage" style="margin: 5px;"><i class="bi bi-person-circle"></i></a> \n' \
         '</form> \n' \
         '</nav> \n' 
 
@@ -51,6 +52,19 @@ def application(environ,start_response):
         html = html.format(title='ようこそ！')
 
         html += templates.index_html.html_body()
+
+        html += '</html>\n'
+        html = html.encode('utf-8')
+
+        # レスポンス
+        start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8'),
+            ('Content-Length', str(len(html))) ])
+        return [html]
+    
+    elif environ['PATH_INFO'] == '/mypage':
+        html = html.format(title='登録情報の変更')
+
+        html += templates.mypage_html.html_body()
 
         html += '</html>\n'
         html = html.encode('utf-8')
