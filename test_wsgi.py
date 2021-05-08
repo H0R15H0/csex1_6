@@ -114,7 +114,7 @@ def application(environ,start_response):
         body = environ['wsgi.input'].read(int(environ.get('CONTENT_LENGTH', 0))).decode('utf-8')
         form = urllib.parse.parse_qs(body)
 
-        query = SQL('insert into users(id, name) values ({},"{}")'.format(int(form['user_student_id'][0]), form['user_name'][0]))
+        query = SQL('insert into users(id, name) values ({},"{}")'.format(int(form['student_id'][0]), form['name'][0]))
         query.execute()
 
         start_response('301 Moved', [('Location','/books')])
