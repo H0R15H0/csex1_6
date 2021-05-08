@@ -38,7 +38,14 @@ def application(environ,start_response):
         '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">' \
         '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">' \
         '<title>{title}</title>\n' \
-        '</head>\n'
+        '</head>\n' \
+        '<nav class="navbar navbar-light bg-light"> \n' \
+        '<a class="navbar-brand" href="/books">Navbar</a> \n' \
+        '<form class="form-inline" action="/books" method="get"> \n' \
+        '<input class="form-control mr-sm-2" type="search" placeholder="検索" name="book_title"> \n' \
+        '<button class="btn btn-outline-success my-2 my-sm-0" type="submit">検索</button> \n' \
+        '</form> \n' \
+        '</nav> \n' 
 
     if environ['PATH_INFO'] == '/':
         html = html.format(title='ようこそ！')
