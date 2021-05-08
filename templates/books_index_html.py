@@ -2,6 +2,7 @@ def html_body(results):
     body = ''
 
     body += '<body>\n' \
+            '<div style="margin: 10px 10px;"> \n' \
             '<h1>本の一覧ページです！</h1>' \
             '<table class="table"> \n' \
                 '<thead> \n' \
@@ -22,5 +23,6 @@ def html_body(results):
                 '</tr> \n'
     body +=     '</tbody> \n' \
                 '</table> \n' \
+                '</div> \n' \
             '</body>\n'
     return body
