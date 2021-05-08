@@ -115,7 +115,27 @@ def application(environ,start_response):
             ('Content-Length', str(len(html))) ])
         return [html]
 
-    elif re.compile('/books/(?P<book_id>\d+)').match(environ['PATH_INFO']).groupdict()["book_id"]:
+    elif environ['REQUEST_METHOD'] == 'POST' and re.compile('/books/(?P<book_id>\d+)/users_books_comments').fullmatch(environ['PATH_INFO']).groupdict()["book_id"]:
+        book_id = re.compile('/books/(?P<book_id>\d+)/users_books_comments').match(environ['PATH_INFO']).groupdict()["book_id"]
+        form = cgi.FieldStorage(environ=environ,keep_blank_values=True)
+        print(form)
+
+
+        # SQL文の実行とその結果のHTML形式への変換
+        user_id = 1
+        query = SQL(f'insert into users (id, books_id, users_id) values ({book_id},{user_id})')
+        query.execute()
+
+        html += templates.books_show_html.html_body(book, comments)
+        html += '</html>\n'
+        html = html.encode('utf-8')
+
+        # レスポンス
+        start_response('200 OK', [('Content-Type', 'text/html; charset=utf-8'),
+            ('Content-Length', str(len(html))) ])
+        return [html]
+
+    elif re.compile('/books/(?P<book_id>\d+)').fullmatch(environ['PATH_INFO']).groupdict()["book_id"]:
         html = html.format(title='本の詳細')
         book_id = re.compile('/books/(?P<book_id>\d+)').match(environ['PATH_INFO']).groupdict()["book_id"]
 
