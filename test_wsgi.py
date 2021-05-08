@@ -40,22 +40,14 @@ def application(environ,start_response):
         '</head>\n'
 
     if environ['PATH_INFO'] == '/':
-        html = html.format(title='root')
+        html = html.format(title='ようこそ！')
         # フォームデータを取得
         form = cgi.FieldStorage(environ=environ,keep_blank_values=True)
         if ('v1' not in form) or ('v2' not in form):
             # 入力フォームの内容が空の場合（初めてページを開いた場合も含む）
 
             # HTML（入力フォーム部分）
-            html += '<body>\n' \
-                    '<div class="form1">\n' \
-                    '<form>\n' \
-                    '学生番号（整数） <input type="text" name="v1"><br>\n' \
-                    '氏名　（文字列） <input type="text" name="v2"><br>\n' \
-                    '<input type="submit" value="登録">\n' \
-                    '</form>\n' \
-                    '</div>\n' \
-                    '</body>\n'
+            html += templates.index_html.html_body()
         else:
             # 入力フォームの内容が空でない場合
 
