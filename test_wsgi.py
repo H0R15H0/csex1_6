@@ -109,6 +109,16 @@ def application(environ,start_response):
             ('Content-Length', str(len(html))) ])
         return [html]
 
+    elif environ['REQUEST_METHOD'] == 'POST' and environ['PATH_INFO'] == '/users':
+        body = environ['wsgi.input'].read(int(environ.get('CONTENT_LENGTH', 0))).decode('utf-8')
+        form = urllib.parse.parse_qs(body)
+
+        query = SQL('insert into users(id, name) values ({},"{}")'.format(int(form['user_student_id'][0]), form['user_name'][0]))
+        query.execute()
+
+        start_response('301 Moved', [('Location','/books')])
+        return ''
+
     elif environ['REQUEST_METHOD'] == 'POST' and re.compile('/books/(?P<book_id>\d+)/users_books_comments').fullmatch(environ['PATH_INFO']).groupdict()["book_id"]:
         book_id = re.compile('/books/(?P<book_id>\d+)/users_books_comments').match(environ['PATH_INFO']).groupdict()["book_id"]
         body = environ['wsgi.input'].read(int(environ.get('CONTENT_LENGTH', 0))).decode('utf-8')
