@@ -34,7 +34,6 @@ def application(environ,start_response):
         '<head>\n' \
         '<meta charset="UTF-8">\n' \
         '<title>{title}</title>\n' \
-        '<link rel="stylesheet" href="default.css">\n' \
         '</head>\n'
 
     if environ['PATH_INFO'] == '/':
