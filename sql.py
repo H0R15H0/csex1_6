@@ -1,14 +1,31 @@
 import sqlite3
 
+DBNAME = 'database.db'
+
 class SQL:
     def __init__(self, query):
         self.query = query
         self.method = query.split(" ")[0]
 
+    @classmethod
+    def initialize_db(cls):
+        con = sqlite3.connect(DBNAME)
+        cur = con.cursor()
+        query = 'create table if not exists users (id int, name varchar(64))'
+        cur.execute(query)
+        query = 'create table if not exists authors (id int, name varchar(64))'
+        cur.execute(query)
+        query = 'create table if not exists books (id int, title varchar(64), class_name varchar(64), published_at varchar(64), author_id int)'
+        cur.execute(query)
+        query = 'create table if not exists users_books_comments (user_id int, book_id int, message varchar(64))'
+        cur.execute(query)
+        con.commit()
+        cur.close()
+        con.close()
+
     def execute(self):
-        dbname = 'database.db'
         # データベース接続とカーソル生成
-        con = sqlite3.connect(dbname)
+        con = sqlite3.connect(DBNAME)
         cur = con.cursor()
         con.text_factory = str
 
