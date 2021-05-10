@@ -4,7 +4,7 @@ def html_body(book, comments):
     body += '<body>\n' \
                 '<a href="/books">< 一覧に戻る</a> \n' \
                 '<div style="margin: 10px 10px;"> \n' \
-                f'<h1>{book[0]}, {book[1]}, {book[2]}</h1>\n'  \
+                f'<h1>{book[1]}</h1>\n'  \
                 '<table class="table" style="width: 20vw;"> \n' \
                 '<tbody> \n' \
                 '<tr> \n' \
