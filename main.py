@@ -165,10 +165,10 @@ def application(environ,start_response):
 
 
 # リファレンスWEBサーバを起動
-#  ファイルを直接実行する（python3 test_wsgi.py）と，
+#  ファイルを直接実行する（python3 main.py）と，
 #  リファレンスWEBサーバが起動し，http://localhost:8080 にアクセスすると
 #  このサンプルの動作が確認できる．
-#  コマンドライン引数にポート番号を指定（python3 test_wsgi.py ポート番号）した場合は，
+#  コマンドライン引数にポート番号を指定（python3 main.py ポート番号）した場合は，
 #  http://localhost:ポート番号 にアクセスする．
 from wsgiref import simple_server
 if __name__ == '__main__':
