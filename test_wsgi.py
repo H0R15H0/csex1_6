@@ -37,6 +37,7 @@ def application(environ,start_response):
         '<meta charset="UTF-8">\n' \
         '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">' \
         '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">' \
+        '<link rel="icon" href="data:,"> \n' \
         '<title>{title}</title>\n' \
         '</head>\n' \
         '<nav class="navbar navbar-primary bg-light"> \n' \
