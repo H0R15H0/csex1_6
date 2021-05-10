@@ -83,7 +83,7 @@ def application(environ,start_response):
         results = query.execute()
 
         # HTMLを読み込む
-        html += templates.books_index_html.html_body(results)
+        html += templates.books_index_html.html_body(results, search_book_title)
         html += '</html>\n'
         html = html.encode('utf-8')
 

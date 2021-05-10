@@ -1,10 +1,13 @@
-def html_body(results):
+def html_body(results, search_book_title):
     body = ''
 
     body += '<body>\n' \
-            '<div style="margin: 10px 10px;"> \n' \
-            '<h1>本の一覧ページです！</h1>' \
-            '<table class="table"> \n' \
+            '<div style="margin: 10px 10px;"> \n' 
+    if search_book_title:
+        body += f'<h1>"{search_book_title}"の検索結果です！</h1>\n' 
+    else:
+        body += f'<h1>本の一覧ページです！</h1>\n' 
+    body += '<table class="table"> \n' \
                 '<thead> \n' \
                 '<tr> \n' \
                 '<th scope="col">id</th> \n' \
