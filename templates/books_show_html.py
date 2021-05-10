@@ -4,7 +4,7 @@ def html_body(book, comments):
     body += '<body>\n' \
                 '<a href="/books">< 一覧に戻る</a> \n' \
                 '<div style="margin: 10px 10px;"> \n' \
-                f'<h1>{book[1]}</h1>\n'  \
+                '<h1>' + book[1] + '</h1>\n'  \
                 '<table class="table" style="width: 20vw;"> \n' \
                 '<tbody> \n' \
                 '<tr> \n' \
@@ -32,7 +32,7 @@ def html_body(book, comments):
     # コメント部分
     body += '<h2>コメント一覧</h2>\n' 
     body +=     '<hr size="10">\n' \
-                f'<form action="/books/{book[0]}/users_books_comments" method="post">\n' \
+                '<form action="/books/'+str(book[0])+'/users_books_comments" method="post">\n' \
                 '<div class="form-group"> \n' \
                     '<label for="user_student_id">学生番号</label> \n' \
                     '<input type="text" class="form-control" id="user_student_id" name="user_student_id" aria-describedby="emailHelp" placeholder="学生番号を入力してください" style="width:40%;"> \n' \

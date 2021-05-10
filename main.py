@@ -78,7 +78,7 @@ def application(environ,start_response):
         # SQL文の実行とその結果のHTML形式への変換
         query = 'select books.id, books.title, books.published_at, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id '
         # クエリパラメーター(book_title)が存在している時、部分一致検索。存在していない時、全体検索。
-        query += f'where books.title LIKE "%{search_book_title}%";' if len(search_book_title) else ';'
+        query += 'where books.title LIKE "%{}%";'.format(search_book_title) if len(search_book_title) else ';'
         query = SQL(query)
         results = query.execute()
 
@@ -136,9 +136,9 @@ def application(environ,start_response):
         book_id = re.compile('/books/(?P<book_id>\d+)').match(environ['PATH_INFO']).groupdict()["book_id"]
 
         # SQL文の実行とその結果のHTML形式への変換
-        query = SQL(f'select books.id, books.title, books.published_at, books.class_name, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id where books.id={book_id};')
+        query = SQL('select books.id, books.title, books.published_at, books.class_name, authors.id, authors.name from books JOIN authors ON books.author_id=authors.id where books.id={};'.format(book_id))
         book = query.execute()
-        query = SQL(f'select users.name, users_books_comments.message from users_books_comments JOIN users ON users_books_comments.user_id=users.id where users_books_comments.book_id={book_id};')
+        query = SQL('select users.name, users_books_comments.message from users_books_comments JOIN users ON users_books_comments.user_id=users.id where users_books_comments.book_id={};'.format(book_id))
         comments = query.execute()
         # commentsが一つの時tupleがかえって来るのでarrayで包む
         if type(comments) is tuple:
