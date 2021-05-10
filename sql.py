@@ -30,16 +30,12 @@ class SQL:
         con.text_factory = str
 
         results = []
-        if self.method == "insert":
-            # SQL文（insert）の作成と実行
+        # SQL文（insert, update）の実行
+        if self.method == "insert" or self.method == "update":
             cur.execute(self.query)
             con.commit()
-        elif self.method == "update":
-            # SQL文（insert）の作成と実行
-            cur.execute(self.query)
-            con.commit()
+        # SQL文（select）の実行
         elif self.method == "select":
-            # SQL文（select）の作成
             for row in cur.execute(self.query):
                 results.append(row)
         # カーソルと接続を閉じる
