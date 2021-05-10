@@ -6,20 +6,17 @@ import sys
 import cgi
 import cgitb
 
-import re
+# SQL関連コマンドのImport
 from sql import SQL
+# HTML関連ファイルのImport
 import templates
 # POSTパラメーター整形用
 import urllib.parse
+# 正規表現用
+import re
 
 cgitb.enable()
 
-# sqlite3（SQLサーバ）モジュールをインポート
-import sqlite3
-
-# データベースファイルのパスを設定
-dbname = 'database.db'
-#dbname = ':memory:'
 
 # テーブルの作成
 SQL.initialize_db()
