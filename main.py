@@ -82,6 +82,10 @@ def application(environ,start_response):
         query = SQL(query)
         results = query.execute()
 
+        # resultsが一つの時tupleがかえって来るのでarrayで包む
+        if type(results) is tuple:
+            results = [results] 
+
         # HTMLを読み込む
         html += templates.books_index_html.html_body(results, search_book_title)
         html += '</html>\n'
