@@ -41,8 +41,6 @@ class SQL:
         # カーソルと接続を閉じる
         cur.close()
         con.close()
-        # タプルで帰ってる時は2以上になる。
-        # 配列で帰ってる時は多次元配列に直す。
         # 検索結果が一個しかない時の対応
         if len(results) == 1:
             results = results[0]
