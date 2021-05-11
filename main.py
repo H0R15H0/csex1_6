@@ -114,7 +114,7 @@ def application(environ,start_response):
         return ''
 
     # /books/{id}/users_books_comments のルーティング
-    elif environ['REQUEST_METHOD'] == 'POST' and re.compile('/books/(?P<book_id>\d+)/users_books_comments').fullmatch(environ['PATH_INFO']).groupdict()["book_id"]:
+    elif environ['REQUEST_METHOD'] == 'POST' and re.compile('/books/(?P<book_id>\d+)/users_books_comments').fullmatch(environ['PATH_INFO']):
         # 正規表現で{id}の取得
         book_id = re.compile('/books/(?P<book_id>\d+)/users_books_comments').match(environ['PATH_INFO']).groupdict()["book_id"]
         # POSTリクエストボディの取得
@@ -129,7 +129,7 @@ def application(environ,start_response):
         return ''
 
     # /books/{id} のルーティング
-    elif re.compile('/books/(?P<book_id>\d+)').fullmatch(environ['PATH_INFO']).groupdict()["book_id"]:
+    elif re.compile('/books/(?P<book_id>\d+)').fullmatch(environ['PATH_INFO']):
         # タイトルの設定
         html = html.format(title='本の詳細')
         # 正規表現で{id}の取得
